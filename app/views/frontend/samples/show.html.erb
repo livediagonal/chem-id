@@ -1,0 +1,18 @@
+<h1><%= "Sample #{@sample.id}" %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time (minutes)</th>
+      <th>Intensity (millivolts)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sample.hplc_data.each do |datum| %>
+      <tr>
+        <td><%= datum.minute %></td>
+        <td><%= datum.millivolts %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

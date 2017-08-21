@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  root to: 'frontend/samples#index'
+
   devise_for :users
-  root to: 'samples#index'
+  
+  namespace :api do
+    resources :samples, only: [:create]
+  end
+
+  namespace :frontend do
+    resources :samples, only: [:index, :show]
+  end
 end

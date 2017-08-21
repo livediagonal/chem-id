@@ -1,3 +1,3 @@
 class HplcDatum < ApplicationRecord
-  belong_to :sample
+  belongs_to :sample
 end

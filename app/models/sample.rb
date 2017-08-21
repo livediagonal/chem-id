@@ -1,4 +1,4 @@
 class Sample < ApplicationRecord
-  has_one :user
+  belongs_to :user
   has_many :hplc_data
 end
