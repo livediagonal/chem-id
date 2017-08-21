@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821011252) do
+ActiveRecord::Schema.define(version: 20170821020008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hplc_data", force: :cascade do |t|
+    t.bigint "sample_id"
+    t.float "minute"
+    t.float "millivolts"
+    t.index ["sample_id"], name: "index_hplc_data_on_sample_id"
+  end
+
+  create_table "samples", force: :cascade do |t|
+    t.text "notes"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_samples_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,4 +45,6 @@ ActiveRecord::Schema.define(version: 20170821011252) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "hplc_data", "samples"
+  add_foreign_key "samples", "users"
 end
