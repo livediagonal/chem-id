@@ -1,3 +1,3 @@
 /*
- * require lib/uikit
+ *= require lib/uikit
  */
