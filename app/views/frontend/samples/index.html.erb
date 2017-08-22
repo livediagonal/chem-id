@@ -4,17 +4,21 @@
 <table class="uk-table uk-table-divider">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Name</th>
+      <th>ID</th>
+      <th>Sample Type</th>
+      <th>Test Type</th>
       <th>Recorded At</th>
       <th></th>
   </thead>
   <tbody>
     <% @samples.each do |sample| %>
       <tr>
-        <td><%= sample.id %></td>
         <td><%= sample.name%></td>
-        <td><%= sample.created_at.to_s %></td>
+        <td><%= sample.id %></td>
+        <td class="uk-text-uppercase"><%= sample.sample_type %></td>
+        <td class="uk-text-uppercase"><%= sample.test_type %></td>
+        <td><%= sample.test_ran_at.strftime("%-m/%-d/%y %-I:%-M %p") %></td>
         <td><%= link_to "View", sample_path(sample) %>
       </tr>
     <% end %>

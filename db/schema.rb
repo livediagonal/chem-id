@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 20170821020008) do
 
   create_table "samples", force: :cascade do |t|
     t.string "name"
+    t.string "sample_type"
+    t.string "test_platform"
+    t.string "test_type"
+    t.datetime "test_ran_at"
     t.text "notes"
     t.bigint "user_id"
     t.datetime "created_at", null: false

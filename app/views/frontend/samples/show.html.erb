@@ -1,27 +1,54 @@
 <h1><%= @sample.name ? @sample.name : "Sample \##{@sample.id}" %></h1>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+<h3>Overview</h3>
+
+<table style="width: 400px;">
+  <tr>
+    <td class="uk-text-bold">Sample ID</td>
+    <td><%= @sample.id %></td>
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Ran At</td>
+    <td><%= @sample.test_ran_at.strftime("%-m/%-d/%y %-I:%-M %p") %></td>  
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Sample Type</td>
+    <td class="uk-text-uppercase"><%= @sample.sample_type %></td>
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Test Type</td>
+    <td class="uk-text-uppercase"><%= @sample.test_type %></td>
+  </tr>
+</table>
+
+<div class="uk-margin-large">
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
+  google.charts.load('current', {'packages':['scatter']});
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    var data = google.visualization.arrayToDataTable(
-      <%== @sample.hplc_data.map {
-        |data| [data.minute, data.millivolts]
-      }.unshift ['Time', 'Millivolts'] %>);
+            
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'Minutes');
+    data.addColumn('number', 'Millivolts');
+
+    data.addRows(<%== @sample.hplc_data.map { |data| [data.minute, data.millivolts] } %>);
 
     var options = {
-      title: 'Time vs. Millivolts',
-      hAxis: {title: 'Time', minValue: <%== @sample.hplc_data.pluck(:minute).min %>, maxValue: <%== @sample.hplc_data.pluck(:minute).max %>},
-      vAxis: {title: 'Millivolts', minValue: <%== @sample.hplc_data.pluck(:millivolts).min %>, maxValue: <%== @sample.hplc_data.pluck(:millivolts).max %>},
-      legend: 'none'
+      title: 'Time vs. Intensity',
+      hAxis: {title: 'Minutes'},
+      vAxis: {title: 'Millivolts'},
+      legend: 'none',
+      pointSize: 1
     };
 
-    var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+    var chart = new google.charts.Scatter(document.getElementById('chart_div'));
 
-    chart.draw(data, options);
+    chart.draw(data, google.charts.Scatter.convertOptions(options));
   }
 </script>
 

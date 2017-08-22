@@ -1,5 +1,14 @@
 user = User.create(email: 'sample@ionizationlabs.com', password: 'test123', password_confirmation: 'test123')
-sample = Sample.create(user: user, notes: 'Grand-daddy purp/platinum cookies hybrid.', name: 'Experimental Strain HBC413')
+
+sample = Sample.create(
+  user: user, 
+  notes: 'Grand-daddy purp/platinum cookies hybrid.', 
+  name: 'Experimental Strain HBC413',
+  sample_type: 'flower',
+  test_platform: 'HPLC',
+  test_type: 'potency',
+  test_ran_at: Time.now
+)
 
 HplcDatum.create(minute: 0.0000, millivolts: 54.2190, sample: sample)
 HplcDatum.create(minute: 0.0017, millivolts: 54.2150, sample: sample)
