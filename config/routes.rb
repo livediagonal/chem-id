@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :samples, only: [:create]
   end
 
-  namespace :frontend do
+  scope module: :frontend do
     resources :samples, only: [:index, :show]
   end
 end

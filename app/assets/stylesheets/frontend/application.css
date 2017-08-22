@@ -1,3 +1,18 @@
 /*
  *= require lib/uikit
  */
+
+.cid-sidebar-left {
+  position: fixed;
+  top: 80px;
+  bottom: 0;
+  width: 240px !important;
+  padding: 40px 40px 60px 40px;
+  box-sizing: border-box;
+  border-right: 1px #e5e5e5 solid;
+  overflow: auto;
+}
+
+.cid-main {
+  padding: 70px 0 70px 240px;
+}

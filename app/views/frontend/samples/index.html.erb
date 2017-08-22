@@ -1,13 +1,22 @@
 <h1>Samples</h1>
 
 <% if @samples.any? %>
-<table>
-  <% @samples.each do |sample| %>
+<table class="uk-table uk-table-striped">
+  <thead>
     <tr>
-      <td><%= sample.id %></td>
-      <td><%= link_to "View", frontend_sample_path(sample) %>
-    </tr>
-  <% end %>
+      <th>ID</th>
+      <th>Name</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.id %></td>
+        <td><%= sample.name%></td>
+        <td><%= link_to "View", sample_path(sample) %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 <% else %>
   No samples found.
