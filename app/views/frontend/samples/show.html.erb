@@ -1,4 +1,4 @@
-<h1><%= "Sample #{@sample.id}" %></h1>
+<h1><%= @sample.name ? @sample.name : "Sample \##{@sample.id}" %></h1>
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

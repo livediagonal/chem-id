@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170821020008) do
   end
 
   create_table "samples", force: :cascade do |t|
+    t.string "name"
     t.text "notes"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_samples_on_user_id"
