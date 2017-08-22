@@ -1,11 +1,12 @@
 <h1>Samples</h1>
 
 <% if @samples.any? %>
-<table class="uk-table uk-table-striped">
+<table class="uk-table uk-table-divider">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th>Recorded At</th>
       <th></th>
   </thead>
   <tbody>
@@ -13,6 +14,7 @@
       <tr>
         <td><%= sample.id %></td>
         <td><%= sample.name%></td>
+        <td><%= sample.created_at.to_s %></td>
         <td><%= link_to "View", sample_path(sample) %>
       </tr>
     <% end %>

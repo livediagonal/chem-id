@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20170821020008) do
     t.string "name"
     t.text "notes"
     t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_samples_on_user_id"
   end
 
