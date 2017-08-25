@@ -8,5 +8,16 @@ module Api
       end
       @sample.save!
     end
+
+    def update
+      @sample = Sample.find(params[:id])
+      @sample.update(sample_params)
+    end
+
+    private
+
+    def sample_params
+      params[:sample].permit(:notes)
+    end
   end
 end

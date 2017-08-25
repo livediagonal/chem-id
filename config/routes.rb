@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   
   namespace :api do
-    resources :samples, only: [:create]
+    resources :samples, only: [:create, :update]
   end
 
   scope module: :frontend do

@@ -2,7 +2,16 @@ user = User.create(email: 'sample@ionizationlabs.com', password: 'test123', pass
 
 sample = Sample.create(
   user: user, 
-  notes: 'Grand-daddy purp/platinum cookies hybrid.', 
+  notes: 'Product Type; Flower
+Zipcode: 90210
+Strain Name: Blue Diesel
+Strain Cross (if hybrid): Blue Dream, Sour Disel
+Strain Type: Hybrid
+Growing Style (type): Greenhouse  
+Extraction Method (type) for concentrates: Supercritical CO2
+Specialty Grow Technology (type):  Aquaponic
+Nutrients, Pesticides, or other additives and amendments: N/A
+Lighting; LED', 
   name: 'Experimental Strain HBC413',
   sample_type: 'flower',
   test_platform: 'HPLC',

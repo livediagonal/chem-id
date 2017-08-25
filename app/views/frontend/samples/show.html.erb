@@ -21,9 +21,62 @@
   </tr>
 </table>
 
-<div class="uk-margin-large">
+<h3>Notes</h3>
+
+<div class="uk-margin-large-bottom">
+  <div id="notes-view">
+    <div id="notes-view-text" style="white-space: pre-line;">
+      <% if @sample.notes %>
+        <%= @sample.notes %>  
+      <% else %>
+        No notes.
+      <% end %>
+    </div>
+
+    <button id="notes-edit-action" class="uk-button uk-margin-top"><%= @sample.notes ? 'edit' : 'create' %></button>
+  </div>
+
+  <script>
+    $("#notes-edit-action").on('click', function () {      
+      UIkit.modal.prompt('Notes').then(function(text) {
+        $.ajax({
+          type: 'PUT',
+          url: '/api/samples/' + <%= @sample.id %>,
+          data: {
+            sample: {
+              notes: text
+            }
+          }
+        }).done(function () {
+          window.location.reload();
+        })
+      });
+    });
+  </script>
+</div>
+
+<h3>Data</h3>
+
+<div class="uk-margin-large-bottom">
   <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </div>
+
+<table class="uk-table uk-table-divider uk-table-small">
+  <thead>
+    <tr>
+      <th>Time (minutes)</th>
+      <th>Intensity (millivolts)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sample.hplc_data.each do |datum| %>
+      <tr>
+        <td><%= datum.minute %></td>
+        <td><%= datum.millivolts %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -51,20 +104,3 @@
     chart.draw(data, google.charts.Scatter.convertOptions(options));
   }
 </script>
-
-<table class="uk-table uk-table-divider uk-table-small">
-  <thead>
-    <tr>
-      <th>Time (minutes)</th>
-      <th>Intensity (millivolts)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sample.hplc_data.each do |datum| %>
-      <tr>
-        <td><%= datum.minute %></td>
-        <td><%= datum.millivolts %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
