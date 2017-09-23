@@ -28,11 +28,21 @@
 <table class="uk-table uk-table-divider">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>ID</th>
-      <th>Sample Type</th>
-      <th>Test Type</th>
-      <th>Recorded At</th>
+      <th>
+        <%= sort_link(@q, :name) %>
+      </th>
+      <th>
+        <%= sort_link(@q, :id) %>
+      </th>
+      <th>
+        <%= sort_link(@q, :sample_type) %>
+      </th>
+      <th>
+        <%= sort_link(@q, :test_type) %>
+      </th>
+      <th>
+        <%= sort_link(@q, :recorded_at) %>
+      </th>
       <th></th>
   </thead>
   <tbody>
