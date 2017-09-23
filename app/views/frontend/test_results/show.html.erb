@@ -1,0 +1,162 @@
+<h1><%= @test_result.name ? @test_result.name : "Test Result \##{@test_result.id}" %></h1>
+
+<h3>Overview</h3>
+
+<table style="width: 400px;">
+  <tr>
+    <td class="uk-text-bold">Test Result ID</td>
+    <td><%= @test_result.id %></td>
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Ran At</td>
+    <td><%= @test_result.test_ran_at.strftime("%-m/%-d/%y %-I:%-M %p") %></td>
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Sample Type</td>
+    <td class="uk-text-uppercase"><%= @test_result.sample_type %></td>
+  </tr>
+  <tr>
+    <td class="uk-text-bold">Test Type</td>
+    <td class="uk-text-uppercase"><%= @test_result.test_type %></td>
+  </tr>
+</table>
+
+<h3>Notes</h3>
+
+<div class="uk-margin-large-bottom">
+  <div id="notes-view">
+    <div id="notes-view-text" style="white-space: pre-line;">
+      <% if @test_result.notes %>
+        <%= @test_result.notes %>
+      <% else %>
+        No notes.
+      <% end %>
+    </div>
+
+    <button id="notes-edit-action" class="uk-button uk-margin-top"><%= @test_result.notes ? 'edit' : 'create' %></button>
+  </div>
+
+  <script>
+    $("#notes-edit-action").on('click', function () {
+      UIkit.modal.prompt('Notes').then(function(text) {
+        $.ajax({
+          type: 'PUT',
+          url: '/api/samples/' + <%= @test_result.id %>,
+          data: {
+            sample: {
+              notes: text
+            }
+          }
+        }).done(function () {
+          window.location.reload();
+        })
+      });
+    });
+  </script>
+</div>
+
+<h3>Compound Data</h3>
+
+<div class="uk-margin-large-bottom">
+  <div id="compound_chart" style="width: 900px; height: 500px;"></div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Compound');
+    data.addColumn('number', 'Concentration');
+
+    data.addRows(<%== @test_result.hplc_compound_data.map { |data| [data.compound, data.concentration] } %>);
+
+    // var data = google.visualization.arrayToDataTable([
+    //   [
+    //   ['Compound', 'Concentration'],
+    //   ['2014', 1000, 400, 200],
+    //   ['2015', 1170, 460, 250],
+    //   ['2016', 660, 1120, 300],
+    //   ['2017', 1030, 540, 350]
+    // ]);
+
+    var options = {
+      chart: {
+        title: 'Compound Concentrations'
+      },
+      bars: 'horizontal' // Required for Material Bar Charts.
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('compound_chart'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+  }
+</script>
+
+<table class="uk-table uk-table-divider uk-table-small">
+  <thead>
+    <tr>
+      <th>Compound</th>
+      <th>Concentration (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @test_result.hplc_compound_data.each do |hplc_compound_data| %>
+      <tr>
+        <td><%= hplc_compound_data.compound %>
+        <td><%= number_to_percentage(hplc_compound_data.concentration * 100, precision: 1) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Raw Data</h3>
+
+<div class="uk-margin-large-bottom">
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</div>
+
+<table class="uk-table uk-table-divider uk-table-small">
+  <thead>
+    <tr>
+      <th>Time (minutes)</th>
+      <th>Intensity (millivolts)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @test_result.hplc_raw_data.each do |datum| %>
+      <tr>
+        <td><%= datum.time_in_min %></td>
+        <td><%= datum.intensity_in_mv %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['scatter']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'Minutes');
+    data.addColumn('number', 'Millivolts');
+
+    data.addRows(<%== @test_result.hplc_raw_data.map { |data| [data.time_in_min, data.intensity_in_mv] } %>);
+
+    var options = {
+      title: 'Time vs. Intensity',
+      hAxis: {title: 'Minutes'},
+      vAxis: {title: 'Millivolts'},
+      legend: 'none',
+      pointSize: 1
+    };
+
+    var chart = new google.charts.Scatter(document.getElementById('chart_div'));
+
+    chart.draw(data, google.charts.Scatter.convertOptions(options));
+  }
+</script>

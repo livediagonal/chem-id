@@ -1,6 +1,6 @@
-class CreateSamples < ActiveRecord::Migration[5.1]
+class CreateTestResults < ActiveRecord::Migration[5.1]
   def change
-    create_table :samples do |t|
+    create_table :test_results do |t|
       t.string :name
       t.string :sample_type
       t.string :test_platform

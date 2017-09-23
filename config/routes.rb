@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  root to: 'frontend/samples#index'
+  root to: 'frontend/test_results#index'
 
   devise_for :users
-  
+
   namespace :api do
-    resources :samples, only: [:create, :update]
+    resources :test_results, only: [:create, :update]
   end
 
   scope module: :frontend do
-    resources :samples, only: [:index, :show]
+    resources :test_results, only: [:index, :show]
   end
 end

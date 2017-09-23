@@ -1,0 +1,29 @@
+<h1>Test Results</h1>
+
+<% if @test_results.any? %>
+<table class="uk-table uk-table-divider">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Sample Type</th>
+      <th>Test Type</th>
+      <th>Recorded At</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @test_results.each do |test_result| %>
+      <tr>
+        <td><%= test_result.name%></td>
+        <td><%= test_result.id %></td>
+        <td class="uk-text-uppercase"><%= test_result.sample_type %></td>
+        <td class="uk-text-uppercase"><%= test_result.test_type %></td>
+        <td><%= test_result.test_ran_at.strftime("%-m/%-d/%y %-I:%-M %p") %></td>
+        <td><%= link_to "View", test_result_path(test_result) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  No test results found.
+<% end %>

@@ -10,19 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821020008) do
+ActiveRecord::Schema.define(version: 20170923190231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "hplc_data", force: :cascade do |t|
-    t.bigint "sample_id"
-    t.float "minute"
-    t.float "millivolts"
-    t.index ["sample_id"], name: "index_hplc_data_on_sample_id"
+  create_table "hplc_compound_data", force: :cascade do |t|
+    t.bigint "test_result_id"
+    t.string "compound"
+    t.float "concentration"
+    t.index ["test_result_id"], name: "index_hplc_compound_data_on_test_result_id"
   end
 
-  create_table "samples", force: :cascade do |t|
+  create_table "hplc_raw_data", force: :cascade do |t|
+    t.bigint "test_result_id"
+    t.float "time_in_min"
+    t.float "intensity_in_mv"
+    t.index ["test_result_id"], name: "index_hplc_raw_data_on_test_result_id"
+  end
+
+  create_table "test_results", force: :cascade do |t|
     t.string "name"
     t.string "sample_type"
     t.string "test_platform"
@@ -32,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170821020008) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_samples_on_user_id"
+    t.index ["user_id"], name: "index_test_results_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170821020008) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "hplc_data", "samples"
-  add_foreign_key "samples", "users"
+  add_foreign_key "hplc_compound_data", "test_results"
+  add_foreign_key "hplc_raw_data", "test_results"
+  add_foreign_key "test_results", "users"
 end
