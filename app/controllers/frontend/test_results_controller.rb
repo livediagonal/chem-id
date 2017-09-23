@@ -1,7 +1,8 @@
 module Frontend
   class TestResultsController < BaseController
     def index
-      @test_results = TestResult.all
+      @q = TestResult.ransack(params[:q])
+      @test_results = @q.result(distinct: true)
     end
 
     def show

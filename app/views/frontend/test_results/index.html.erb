@@ -1,5 +1,29 @@
 <h1>Test Results</h1>
 
+<%= search_form_for @q, class: "uk-grid uk-flex uk-flex-bottom" do |f| %>
+  <div>
+    <%= f.label :name_cont, "Search by name: ", class: "uk-form-label" %>
+    <div class="uk-form-controls">
+      <%= f.search_field :name_cont, class: "uk-input uk-form-width-medium" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :name_cont, "Recorded before: ", class: "uk-form-label"%>
+    <div class="uk-form-controls">
+      <%= f.search_field :test_ran_at_lteq, class: "uk-input uk-form-width-medium", id: "recorded_before_date" %>
+    </div>
+
+    <script>
+      var picker = new Pikaday({ field: $('#recorded_before_date')[0] });
+    </script>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.submit "filter", class: "uk-button" %>
+  </div>
+<% end %>
+
 <% if @test_results.any? %>
 <table class="uk-table uk-table-divider">
   <thead>
