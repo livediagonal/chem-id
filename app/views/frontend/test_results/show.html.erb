@@ -1,3 +1,4 @@
+<div class="uk-container uk-container-small">
 <h1><%= @test_result.name ? @test_result.name : "Test Result \##{@test_result.id}" %></h1>
 
 <h3>Overview</h3>
@@ -57,8 +58,8 @@
 
 <h3>Compound Data</h3>
 
-<div class="uk-margin-large-bottom">
-  <div id="compound_chart" style="width: 900px; height: 500px;"></div>
+<div class="uk-margin-bottom uk-card uk-card-default uk-card-body">
+  <div id="compound_chart" style="padding: 30px;"></div>
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -95,7 +96,7 @@
   }
 </script>
 
-<table class="uk-table uk-table-divider uk-table-small">
+<table class="uk-table uk-table-divider uk-table-small uk-card uk-card-default">
   <thead>
     <tr>
       <th>Compound</th>
@@ -114,29 +115,12 @@
 
 <h3>Raw Data</h3>
 
-<div class="uk-margin-large-bottom">
-  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div class="uk-card uk-card-default uk-card-body">
+  <div id="chart_div"></div>
 </div>
 
-<table class="uk-table uk-table-divider uk-table-small">
-  <thead>
-    <tr>
-      <th>Time (minutes)</th>
-      <th>Intensity (millivolts)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @test_result.hplc_raw_data.each do |datum| %>
-      <tr>
-        <td><%= datum.time_in_min %></td>
-        <td><%= datum.intensity_in_mv %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <script type="text/javascript">
-  google.charts.load('current', {'packages':['scatter']});
+  google.charts.load('current', {'packages':['line']});
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
@@ -152,11 +136,29 @@
       hAxis: {title: 'Minutes'},
       vAxis: {title: 'Millivolts'},
       legend: 'none',
-      pointSize: 1
+      pointSize: 5,
+      height: 400
     };
 
-    var chart = new google.charts.Scatter(document.getElementById('chart_div'));
+    var chart = new google.charts.Line(document.getElementById('chart_div'));
 
-    chart.draw(data, google.charts.Scatter.convertOptions(options));
+    chart.draw(data, google.charts.Line.convertOptions(options));
   }
 </script>
+
+<table class="uk-table uk-table-divider uk-table-small uk-card uk-card-default">
+  <thead>
+    <tr>
+      <th>Time (minutes)</th>
+      <th>Intensity (millivolts)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @test_result.hplc_raw_data.each do |datum| %>
+      <tr>
+        <td><%= datum.time_in_min %></td>
+        <td><%= datum.intensity_in_mv %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

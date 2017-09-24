@@ -3,6 +3,15 @@
  *= require lib/uikit
  */
 
+ html, body {
+   font-family: 'Ubuntu Mono', monospace;
+   height: 100%;
+ }
+
+.cid-top-nav {
+  background: #fff !important;
+}
+
 .cid-sidebar-left {
   position: fixed;
   top: 80px;
