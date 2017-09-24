@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <nav class="uk-navbar-container" uk-sticky>
+    <nav class="uk-navbar-container cid-top-nav uk-box-shadow-small" uk-sticky>
       <div class="uk-container uk-container-expand">
         <div uk-navbar>
           <div class="uk-navbar-left">
@@ -19,8 +19,10 @@
       </div>
     </nav>
 
-    <div class="uk-container">
-      <%= yield %>
+    <div class="uk-background-muted" style="min-height: 100%;">
+      <div class="uk-container" style="padding-top: 60px;">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

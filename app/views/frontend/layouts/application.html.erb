@@ -22,7 +22,15 @@
                   <%= link_to "Test Results", test_results_path %>
                 </li>
                 <li>
-                  <%= link_to("Logout", destroy_user_session_path, method: :delete) %>
+                  <a href="javascript: void(0);"><span uk-icon="icon: user"></span></a>
+
+                  <div class="uk-navbar-dropdown" uk-dropdown="pos: bottom-left">
+                     <ul class="uk-nav uk-navbar-dropdown-nav">
+                       <li>
+                         <%= link_to("Logout", destroy_user_session_path, method: :delete) %>
+                       </li>
+                     </ul>
+                   </div>
                 </li>
               </ul>
           </div>
