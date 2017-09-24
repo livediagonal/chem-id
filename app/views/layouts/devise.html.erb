@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChemId</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'frontend/application', media: 'all' %>
+    <%= javascript_include_tag 'frontend/application' %>
+  </head>
+
+  <body>
+    <nav class="uk-navbar-container cid-top-nav uk-box-shadow-small" uk-sticky>
+      <div class="uk-container uk-container-expand">
+        <div uk-navbar>
+          <div class="uk-navbar-left">
+            <a href="/" class="uk-navbar-item uk-logo">Chem ID</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="uk-background-muted" style="min-height: 100%;">
+      <div class="uk-container" style="padding-top: 60px;">
+        <div class="uk-margin-auto uk-card uk-card-default uk-card-body" style="width: 420px;">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
