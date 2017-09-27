@@ -15,7 +15,7 @@
     </div>
 
     <script>
-      var picker = new Pikaday({ field: $('#recorded_before_date')[0] });
+var picker = new Pikaday({ field: $('#recorded_before_date')[0] });
     </script>
   </div>
 
@@ -54,7 +54,9 @@
             <td class="uk-text-uppercase"><%= test_result.sample_type %></td>
             <td class="uk-text-uppercase"><%= test_result.test_type %></td>
             <td><%= test_result.test_ran_at.strftime("%-m/%-d/%y %-I:%-M %p") %></td>
-            <td><%= link_to "View", test_result_path(test_result), class: "uk-button uk-button-default uk-button-small" %>
+            <td>
+              <%= link_to "View", test_result_path(test_result), class: "uk-button uk-button-default uk-button-small" %>
+              <%= link_to "PDF", test_result_path(test_result, :pdf), class: "uk-button uk-button-default uk-button-small" %>
           </tr>
         <% end %>
       </tbody>
