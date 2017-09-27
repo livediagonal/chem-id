@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'ransack'
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # engines
 gem 'devise'
