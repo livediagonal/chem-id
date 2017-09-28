@@ -8,4 +8,4 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-WickedPdf.config = { exe_path: ENV["WKHTMLTOPDF_PATH"], wkhtmltopdf: ENV["WKHTMLTOPDF_PATH"] }
+# WickedPdf.config = { exe_path: ENV["WKHTMLTOPDF_PATH"], wkhtmltopdf: ENV["WKHTMLTOPDF_PATH"] }
