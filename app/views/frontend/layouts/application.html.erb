@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
     <%= stylesheet_link_tag    'frontend/application', media: 'all' %>
     <%= javascript_include_tag 'frontend/application' %>
+
+    <%= yield :head %>
   </head>
 
   <body>
