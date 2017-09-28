@@ -17,7 +17,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'ransack'
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 
 # engines
 gem 'devise'
@@ -30,6 +29,10 @@ end
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+end
+
+group :production do
+  gem 'wkhtmltopdf-heroku'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
